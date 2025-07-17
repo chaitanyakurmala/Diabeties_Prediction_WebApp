@@ -1,87 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Dashboard | Diabetes Prediction</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Dashboard - Diabetes Prediction</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center font-sans">
-  <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl">
-    <!-- Header -->
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-6">
+  <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-2xl">
     <div class="flex justify-between items-center mb-6">
-      <h2 class="text-2xl font-bold text-blue-600">🩺 Diabetes Prediction</h2>
-      <form action="/logout" method="POST">
-        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-          Logout
-        </button>
-      </form>
+      <h1 class="text-2xl font-bold text-blue-600 flex items-center gap-2">
+        <i data-lucide="stethoscope" class="w-6 h-6"></i>
+        Diabetes Dashboard
+      </h1>
+      <a href="{{ url_for('logout') }}"
+         class="flex items-center gap-1 text-red-500 hover:text-red-700 font-semibold">
+        <i data-lucide="log-out" class="w-5 h-5"></i> Logout
+      </a>
     </div>
 
-    <p class="mb-4 text-gray-700">Welcome, <strong>{{ username }}</strong></p>
-
-    <!-- Form -->
-    <form method="POST" action="/predict" class="space-y-4">
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-medium">Gender</label>
-          <select name="gender" required class="w-full mt-1 p-2 border rounded">
-            <option value="">Select</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm font-medium">Age</label>
-          <input type="number" name="age" required class="w-full mt-1 p-2 border rounded" />
-        </div>
-        <div>
-          <label class="block text-sm font-medium">Hypertension</label>
-          <select name="hypertension" required class="w-full mt-1 p-2 border rounded">
-            <option value="0">No</option>
-            <option value="1">Yes</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm font-medium">Heart Disease</label>
-          <select name="heart_disease" required class="w-full mt-1 p-2 border rounded">
-            <option value="0">No</option>
-            <option value="1">Yes</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm font-medium">Smoking History</label>
-          <select name="smoking_history" required class="w-full mt-1 p-2 border rounded">
-            <option value="">Select</option>
-            <option value="never">Never</option>
-            <option value="former">Former</option>
-            <option value="current">Current</option>
-            <option value="not current">Not current</option>
-            <option value="No Info">No Info</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm font-medium">BMI</label>
-          <input type="number" step="0.1" name="bmi" required class="w-full mt-1 p-2 border rounded" />
-        </div>
-        <div>
-          <label class="block text-sm font-medium">HbA1c Level</label>
-          <input type="number" step="0.1" name="HbA1c_level" required class="w-full mt-1 p-2 border rounded" />
-        </div>
-        <div>
-          <label class="block text-sm font-medium">Blood Glucose Level</label>
-          <input type="number" name="blood_glucose_level" required class="w-full mt-1 p-2 border rounded" />
-        </div>
+    <form method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="text-gray-700 font-medium mb-1 block">Gender</label>
+        <select name="gender" class="w-full border border-gray-300 rounded-lg px-3 py-2">
+          <option value="">Select</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
       </div>
-      <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Predict</button>
+
+      <div>
+        <label class="text-gray-700 font-medium mb-1 block">Age</label>
+        <input type="number" name="age" class="w-full border rounded-lg px-3 py-2" required>
+      </div>
+
+      <div>
+        <label class="text-gray-700 font-medium mb-1 block">Hypertension</label>
+        <select name="hypertension" class="w-full border rounded-lg px-3 py-2">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="text-gray-700 font-medium mb-1 block">Heart Disease</label>
+        <select name="heart_disease" class="w-full border rounded-lg px-3 py-2">
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="text-gray-700 font-medium mb-1 block">Smoking History</label>
+        <select name="smoking_history" class="w-full border rounded-lg px-3 py-2">
+          <option value="">Select</option>
+          <option value="never">Never</option>
+          <option value="former">Former</option>
+          <option value="current">Current</option>
+          <option value="not current">Not Current</option>
+          <option value="ever">Ever</option>
+          <option value="unknown">Unknown</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="text-gray-700 font-medium mb-1 block">BMI</label>
+        <input type="number" step="0.1" name="bmi" class="w-full border rounded-lg px-3 py-2" required>
+      </div>
+
+      <div>
+        <label class="text-gray-700 font-medium mb-1 block">HbA1c Level</label>
+        <input type="number" step="0.1" name="hba1c" class="w-full border rounded-lg px-3 py-2" required>
+      </div>
+
+      <div>
+        <label class="text-gray-700 font-medium mb-1 block">Blood Glucose Level</label>
+        <input type="number" step="0.1" name="glucose" class="w-full border rounded-lg px-3 py-2" required>
+      </div>
+
+      <div class="md:col-span-2">
+        <button type="submit"
+          class="w-full flex justify-center items-center gap-2 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition">
+          <i data-lucide="activity" class="w-5 h-5"></i> Predict
+        </button>
+      </div>
     </form>
 
     {% if result %}
-      <div class="mt-6 p-4 bg-gray-100 border rounded text-center text-lg text-green-700">
-        <strong>Prediction Result:</strong> {{ result }}
-      </div>
+    <div class="mt-6 text-center">
+      <p class="text-lg font-semibold text-white bg-blue-600 px-6 py-3 rounded-lg inline-block shadow">
+        Prediction Result: {{ result }}
+      </p>
+    </div>
     {% endif %}
   </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 </html>
