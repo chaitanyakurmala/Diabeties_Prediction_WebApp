@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register | Diabetes App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white p-8 rounded shadow w-full max-w-md">
+    <h2 class="text-2xl font-bold text-blue-600 mb-6 text-center">Register</h2>
+    <form method="POST" class="space-y-4">
+      <input name="username" required class="w-full p-2 border rounded" placeholder="Username" />
+      <input name="password" type="password" required class="w-full p-2 border rounded" placeholder="Password" />
+      <input name="email" type="email" required class="w-full p-2 border rounded" placeholder="Email" />
+      <input name="mobile" required class="w-full p-2 border rounded" placeholder="Mobile" />
+      <button class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Register</button>
+      <div class="text-center mt-4">
+        <a href="/" class="text-sm text-blue-600">Back to Login</a>
+      </div>
+    </form>
+  </div>
+
+  {% if registration_success %}
+  <script>
+    alert("✅ Registered successfully!");
+  </script>
+  {% elif registration_failed %}
+  <script>
+    alert("❌ Registration failed. User might exist or DB error.");
+  </script>
+  {% endif %}
+</body>
+</html>
