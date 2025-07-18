@@ -25,8 +25,32 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        session['user'] = request.form['username']
-        return redirect('/dashboard')
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        try:
+            connection = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="root",
+                database="diabetes_prediction"
+            )
+            cursor = connection.cursor()
+            cursor.execute("SELECT * FROM users WHERE username = %s AND password = %s", (username, password))
+            user = cursor.fetchone()
+            cursor.close()
+            connection.close()
+
+            if user:
+                session['user'] = username
+                return redirect('/dashboard')
+            else:
+                return render_template('login.html', login_failed=True)
+
+        except Exception as e:
+            print("Login error:", e)
+            return render_template('login.html', login_failed=True)
+
     return render_template('login.html')
 
 @app.route('/logout')
@@ -134,7 +158,8 @@ def dashboard():
                 except Exception as e:
                     print("Meal plan error:", e)
 
-    return render_template('dashboard.html', result=result, meal_plan=meal_plan)
+    return render_template('dashboard.html', result=result, meal_plan=meal_plan, username=session['user'])
+
 
 if __name__ == '__main__':
     app.run(debug=True)
